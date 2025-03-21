@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#1677ff" />
+    <meta name="description" content="基于人工智能的网文创作平台" />
+    
+    <!-- PWA相关 -->
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180">
+    <link rel="mask-icon" href="/mask-icon.svg" color="#1677ff">
+    <meta name="msapplication-TileColor" content="#1677ff">
+    
+    <!-- 预连接到API域名 -->
+    <link rel="preconnect" href="http://localhost:8000">
+    
+    <!-- 字体预加载 -->
+    <link
+      rel="preload"
+      href="/fonts/inter-var.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    
+    <title>VerseForge - AI驱动的网文创作平台</title>
+    
+    <!-- 内联关键CSS -->
+    <style>
+      .page-loading {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: #f0f2f5;
+      }
+      .loading-spinner {
+        width: 50px;
+        height: 50px;
+        border: 5px solid #f3f3f3;
+        border-top: 5px solid #1677ff;
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+      }
+      @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root">
+      <!-- 初始加载动画 -->
+      <div class="page-loading">
+        <div class="loading-spinner"></div>
+      </div>
+    </div>
+    <script type="module" src="/src/main.tsx"></script>
+    
+    <!-- 禁用右键菜单 -->
+    <script>
+      document.addEventListener('contextmenu', (e) => e.preventDefault());
+    </script>
+    
+    <!-- 错误监控 -->
+    <script>
+      window.addEventListener('error', function(e) {
+        console.error('Global error:', e.error);
+        // TODO: 发送错误到监控系统
+      });
+      
+      window.addEventListener('unhandledrejection', function(e) {
+        console.error('Unhandled promise rejection:', e.reason);
+        // TODO: 发送错误到监控系统
+      });
+    </script>
+  </body>
+</html>
